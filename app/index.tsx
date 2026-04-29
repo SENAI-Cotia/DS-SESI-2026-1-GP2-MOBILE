@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 
-import { 
-  StyleSheet, 
-  Text, 
-  View, 
-  TextInput, 
-  TouchableOpacity, 
-  StatusBar,
-  SafeAreaView,
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import {
+  Image,
   KeyboardAvoidingView,
   Platform,
-  Image
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function LoginScreen() {
   const [cpf, setCpf] = useState('');
   const [senha, setSenha] = useState('');
   const [secureText, setSecureText] = useState(true);
   const [lembreMe, setLembreMe] = useState(false); 
+  const router = useRouter()
 
   {/*Dá um limite de caracteres, e permite apenas número nesse campo*/}
   const handleCpfChange = (text: string) => {
@@ -106,7 +108,7 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push("/(tabs)")}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
