@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
 
 import { 
@@ -112,76 +111,6 @@ export default function LoginScreen() {
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>
-=======
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  ScrollView
-} from 'react-native';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-
-export default function NovoChamado() {
-  return (
-    <ScrollView style={styles.container}>
-
-      <View style={styles.cabecalho}>
-        <Ionicons name="arrow-back" size={22} color="#fff" />
-        <Text style={styles.tituloCabecalho}>Novo chamado</Text>
-      </View>
-
-      <Text style={styles.titulo}>Qual é o seu problema?</Text>
-
-      <Text style={styles.rotulo}>Categoria do Problema</Text>
-
-      <View style={styles.categorias}>
-        <TouchableOpacity style={styles.cartao}>
-          <MaterialIcons name="computer" size={24} color="#4410B4" />
-          <View>
-            <Text style={styles.cartaoTitulo}>Informática (TI)</Text>
-            <Text style={styles.cartaoSub}>Escritório</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.cartao}>
-          <MaterialIcons name="factory" size={24} color="#4410B4" />
-          <Text style={styles.cartaoTitulo}>Produção</Text>
-        </TouchableOpacity>
-      </View>
-
-      <Text style={styles.rotulo}>O que aconteceu?</Text>
-
-      <TextInput
-        placeholder="Descreva brevemente o problema"
-        placeholderTextColor="#999"
-        multiline
-        style={styles.areaTexto}
-      />
-
-      <Text style={styles.rotulo}>Anexar foto (Opcional)</Text>
-
-      <TouchableOpacity style={styles.foto}>
-        <Ionicons name="image" size={20} color="#7A5CFF" />
-        <Text style={styles.textoFoto}>Adicionar foto</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.rotulo}>Adicione sua Localização</Text>
-
-      <TextInput
-        placeholder="Administração, Almoxerifado ou Produção"
-        placeholderTextColor="#999"
-        style={styles.input}
-      />
-
-      <TouchableOpacity style={styles.botao}>
-        <Text style={styles.textoBotao}>Enviar chamado</Text>
-      </TouchableOpacity>
-
-    </ScrollView>
->>>>>>> 6e45405 (pagina criar chamado)
   );
 }
 
