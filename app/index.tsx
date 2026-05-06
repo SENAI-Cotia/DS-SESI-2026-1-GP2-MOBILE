@@ -24,7 +24,7 @@ export default function LoginScreen() {
 
   {/*Dá um limite de caracteres, e permite apenas número nesse campo*/}
   const handleCpfChange = (text: string) => {
-    const apenasNumeros = text.replace(/[^0-9]/, '');
+    const apenasNumeros = text.replace(/[^0-9]/g, '');
     if (apenasNumeros.length <= 11) {
       setCpf(apenasNumeros);
     }
@@ -32,7 +32,7 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#7B61FF" />
+      <StatusBar barStyle="light-content" backgroundColor="#3C1BB8" />
       
       <View style={styles.header}>
         <Image 
@@ -42,7 +42,7 @@ export default function LoginScreen() {
         />
       </View>
 
-      {/*Sobe os componentes da tela quando a pessoa vai digitar algo (no celular)*/}
+{/*Sobe os componentes da tela quando a pessoa vai digitar algo (no celular)*/}
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.card}> 
@@ -50,6 +50,7 @@ export default function LoginScreen() {
         <Text style={styles.title}>Bem vindo, vamos começar!</Text>
         <Text style={styles.subtitle}>Faça login na sua conta!</Text>
 
+        {/* Campo CPF */}
         <View style={styles.inputGroup}>
           <Text style={styles.label}>CPF</Text>
           <TextInput 
@@ -60,32 +61,33 @@ export default function LoginScreen() {
             maxLength={11}
             value={cpf}
             onChangeText={handleCpfChange}
-            underlineColorAndroid="transparent"
           />
         </View>
 
+        {/* Campo Senha */}
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Senha</Text>
-          <div style={{ width: '100%' }}>
+
+          <View style={{ width: '100%' }}>
             <View style={styles.passwordContainer}>
-                <TextInput
+              
+              <TextInput
                 style={styles.inputPassword}
                 placeholder="Insira sua senha"
                 placeholderTextColor="#999"
                 secureTextEntry={secureText}
                 value={senha}
-                onChangeText={setSenha}
-                underlineColorAndroid="transparent"
-                />
-                <TouchableOpacity onPress={() => setSecureText(!secureText)}>
+                onChangeText={setSenha}/>
+
+              <TouchableOpacity onPress={() => setSecureText(!secureText)}>
                 <Ionicons 
-                    name={secureText ? "eye-off-outline" : "eye-outline"} 
-                    size={22} 
-                    color="#999" 
-                />
-                </TouchableOpacity>
+                  name={secureText ? "eye-off-outline" : "eye-outline"} 
+                  size={22} 
+                  color="#999"/>
+              </TouchableOpacity>
+
             </View>
-          </div>
+          </View>
         </View>
 
         <View style={styles.rowLinks}>
@@ -96,7 +98,7 @@ export default function LoginScreen() {
             <Ionicons 
               name={lembreMe ? "checkmark-circle" : "ellipse-outline"} 
               size={20} 
-              color={lembreMe ? "#5D3FD3" : "#999"} 
+              color={lembreMe ? "#3C1BB8" : "#999"} 
             />
             <Text style={[styles.linkTextSmall, { marginLeft: 5 }]}>
               Lembre de mim
@@ -111,6 +113,7 @@ export default function LoginScreen() {
         <TouchableOpacity style={styles.button} onPress={() => router.push("/(tabs)")}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
+
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -119,14 +122,13 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'linear-gradient(to bottom, #2E1A78, #4F46E5, #3354A4)'
+    backgroundColor: '#3C1BB8'
   },
 
   header: {
     height: '25%', 
     justifyContent: 'center',
     alignItems: 'center',
-
   },
 
   logo: {
@@ -171,25 +173,26 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 
+  // Input padrão
   input: {
     width: '100%',
     height: 50,
     borderWidth: 1,
-    borderColor: '#7463F6',
+    borderColor: '#3C1BB8',
     borderRadius: 12,
     paddingHorizontal: 15,
     backgroundColor: '#F9F9F9',
     color: '#333',
-   
   },
 
+  // Container da senha (input + ícone)
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
     height: 50,
     borderWidth: 1,
-    borderColor: '#7463F6',
+    borderColor: '#3C1BB8',
     borderRadius: 12,
     paddingHorizontal: 15,
     backgroundColor: '#F9F9F9',
@@ -199,7 +202,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     color: '#333',
-  
   },
 
   rowLinks: {
@@ -227,7 +229,7 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     height: 55,
-    backgroundColor: '#7463F6',
+    backgroundColor: '#3C1BB8',
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
