@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,14 +8,47 @@ import {
   ScrollView
 } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Link } from 'expo-router';
 
 export default function NovoChamado() {
+
+  const [arquivoNome, setArquivoNome] = useState('');
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
+
+  function anexarArquivo() {
+
+    if (typeof document !== "undefined") {
+
+      const input = document.createElement("input");
+
+      input.type = "file";
+
+      input.onchange = (event) => {
+
+        const arquivo = event.target.files[0];
+
+        if (arquivo) {
+          setArquivoNome(arquivo.name);
+        }
+      };
+
+      input.click();
+    }
+  }
+
   return (
     <ScrollView style={styles.container}>
 
       <View style={styles.cabecalho}>
-        <Ionicons name="arrow-back" size={22} color="#fff" />
+
+        <Link href={"/"} asChild>
+          <TouchableOpacity>
+            <Ionicons name="arrow-back" size={22} color="#fff" />
+          </TouchableOpacity>
+        </Link>
+
         <Text style={styles.tituloCabecalho}>Novo chamado</Text>
+
       </View>
 
       <Text style={styles.titulo}>Qual é o seu problema?</Text>
@@ -23,19 +56,74 @@ export default function NovoChamado() {
       <Text style={styles.rotulo}>Categoria do Problema</Text>
 
       <View style={styles.categorias}>
-        <TouchableOpacity style={styles.cartao}>
-          <MaterialIcons name="computer" size={24} color="#4410B4" />
+
+        <TouchableOpacity
+          style={[
+            styles.cartao,
+            categoriaSelecionada === 'ti' && styles.cartaoSelecionado
+          ]}
+          onPress={() => setCategoriaSelecionada('ti')}
+        >
+          <MaterialIcons
+            name="computer"
+            size={24}
+            color={categoriaSelecionada === 'ti' ? '#fff' : '#4F46E5'}
+          />
+
           <View>
-            <Text style={styles.cartaoTitulo}>Informática (TI)</Text>
-            <Text style={styles.cartaoSub}>Escritório</Text>
+            <Text
+              style={[
+                styles.cartaoTitulo,
+                categoriaSelecionada === 'ti' && styles.textoSelecionado
+              ]}
+            >
+              Informática (TI)
+            </Text>
+
+            <Text
+              style={[
+                styles.cartaoSub,
+                categoriaSelecionada === 'ti' && styles.textoSelecionado
+              ]}
+            >
+              Escritório
+            </Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.cartao}>
-          <MaterialIcons name="factory" size={24} color="#4410B4" />
-          <Text style={styles.cartaoTitulo}>Produção</Text>
+        <TouchableOpacity
+          style={[
+            styles.cartao,
+            categoriaSelecionada === 'producao' && styles.cartaoSelecionado
+          ]}
+          onPress={() => setCategoriaSelecionada('producao')}
+        >
+          <MaterialIcons
+            name="factory"
+            size={24}
+            color={categoriaSelecionada === 'producao' ? '#fff' : '#4F46E5'}
+          />
+
+          <Text
+            style={[
+              styles.cartaoTitulo,
+              categoriaSelecionada === 'producao' && styles.textoSelecionado
+            ]}
+          >
+            Produção
+          </Text>
         </TouchableOpacity>
+
       </View>
+
+      <Text style={styles.rotulo}>Título</Text>
+
+      <TextInput
+        placeholder="Adicione um título"
+        placeholderTextColor="#999"
+        multiline
+        style={styles.areaTitulo}
+      />
 
       <Text style={styles.rotulo}>O que aconteceu?</Text>
 
@@ -46,12 +134,28 @@ export default function NovoChamado() {
         style={styles.areaTexto}
       />
 
-      <Text style={styles.rotulo}>Anexar foto (Opcional)</Text>
+      <Text style={styles.rotulo}>Anexar arquivo (Opcional)</Text>
 
-      <TouchableOpacity style={styles.foto}>
-        <Ionicons name="image" size={20} color="#7A5CFF" />
-        <Text style={styles.textoFoto}>Adicionar foto</Text>
+      <TouchableOpacity
+        style={styles.foto}
+        onPress={anexarArquivo}
+      >
+        <Ionicons name="document-attach" size={20} color="#4F46E5" />
+
+        <Text style={styles.textoFoto}>
+          Selecionar arquivo do computador
+        </Text>
       </TouchableOpacity>
+
+      {arquivoNome !== '' && (
+        <View style={styles.arquivoBox}>
+          <Ionicons name="document-text" size={18} color="#4F46E5" />
+
+          <Text style={styles.nomeArquivo}>
+            {arquivoNome}
+          </Text>
+        </View>
+      )}
 
       <Text style={styles.rotulo}>Adicione sua Localização</Text>
 
@@ -61,9 +165,13 @@ export default function NovoChamado() {
         style={styles.input}
       />
 
-      <TouchableOpacity style={styles.botao}>
-        <Text style={styles.textoBotao}>Enviar chamado</Text>
-      </TouchableOpacity>
+      <View style={styles.containerBtn}>
+        <Link href={"/homeFuncionario"} asChild>
+          <TouchableOpacity style={styles.botao}>
+            <Text style={styles.textoBotao}>Enviar chamado</Text>
+          </TouchableOpacity>
+          </Link>
+      </View>
 
     </ScrollView>
   );
@@ -76,7 +184,7 @@ const styles = StyleSheet.create({
   },
 
   cabecalho: {
-    backgroundColor: '#4410B4',
+    backgroundColor: '#4F46E5',
     paddingTop: 15,
     paddingBottom: 20,
     paddingHorizontal: 20,
@@ -84,21 +192,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    elevation: 8,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
   },
 
   tituloCabecalho: {
     color: '#fff',
     fontSize: 18,
     fontWeight: '600',
-    marginLeft: 100
+    marginLeft: 90
   },
 
   titulo: {
@@ -106,7 +206,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
     marginVertical: 40,
-    color: '#4410B4'
+    color: '#4F46E5'
   },
 
   rotulo: {
@@ -134,15 +234,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9F4F4',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#7A5CFF',
-    elevation: 3,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
+    borderColor: '#4F46E5',
+  },
+
+  cartaoSelecionado: {
+    backgroundColor: '#4F46E5',
+  },
+
+  textoSelecionado: {
+    color: '#fff',
   },
 
   cartaoTitulo: {
@@ -156,23 +256,28 @@ const styles = StyleSheet.create({
     color: '#777'
   },
 
+    areaTitulo: {
+    height: 40,
+    backgroundColor: '#F9F4F4',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#4F46E5',
+    marginHorizontal: 20,
+    marginBottom: 20,
+    padding: 12,
+    textAlignVertical: 'top',
+  },
+
   areaTexto: {
     height: 160,
     backgroundColor: '#F9F4F4',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#7A5CFF',
+    borderColor: '#4F46E5',
     marginHorizontal: 20,
     marginBottom: 20,
     padding: 12,
     textAlignVertical: 'top',
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
   },
 
   foto: {
@@ -186,18 +291,28 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#7A5CFF',
     backgroundColor: '#F9F4F4',
-    marginBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
+    marginBottom: 15,
   },
 
   textoFoto: {
     color: '#777'
+  },
+
+  arquivoBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ECE8FF',
+    marginHorizontal: 20,
+    padding: 12,
+    borderRadius: 10,
+    marginBottom: 20,
+    gap: 10
+  },
+
+  nomeArquivo: {
+    color: '#4F46E5',
+    fontSize: 14,
+    flex: 1
   },
 
   input: {
@@ -208,30 +323,20 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     padding: 12,
     marginBottom: 30,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
+  },
+
+  containerBtn: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 40
   },
 
   botao: {
-    backgroundColor: '#4410B4',
-    marginHorizontal: 60,
+    backgroundColor: '#4F46E5',
+    width: 180,
     padding: 15,
     borderRadius: 12,
     alignItems: 'center',
-    elevation: 5,
-    marginBottom: 40,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
   },
 
   textoBotao: {

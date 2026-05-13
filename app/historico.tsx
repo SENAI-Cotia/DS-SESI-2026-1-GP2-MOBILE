@@ -8,11 +8,13 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { Link } from 'expo-router';
 
 export default function HistoricoChamados() {
 
   const [filtroAtivo, setFiltroAtivo] = useState('todos');
+  const [busca, setBusca] = useState('');
 
   const chamados = [
     {
@@ -56,29 +58,50 @@ export default function HistoricoChamados() {
     }
   ];
 
-  const chamadosFiltrados =
-    filtroAtivo === 'todos'
-      ? chamados
-      : chamados.filter(c => c.status === filtroAtivo);
+  const chamadosFiltrados = chamados.filter(item => {
+
+    const filtroStatus =
+      filtroAtivo === 'todos' || item.status === filtroAtivo;
+
+    const filtroBusca =
+      item.titulo.toLowerCase().includes(busca.toLowerCase()) ||
+      item.descricao.toLowerCase().includes(busca.toLowerCase()) ||
+      item.funcionario.toLowerCase().includes(busca.toLowerCase()) ||
+      item.setor.toLowerCase().includes(busca.toLowerCase());
+
+    return filtroStatus && filtroBusca;
+  });
 
   return (
     <View style={estilos.container}>
 
       <View style={estilos.cabecalho}>
-        <Ionicons name="arrow-back" size={20} color="#fff" />
-        <Text style={estilos.tituloCabecalho}>Histórico de chamados</Text>
+
+        <Link href={"/homeFuncionario"} asChild>
+          <TouchableOpacity>
+            <Ionicons name="arrow-back" size={20} color="#fff" />
+          </TouchableOpacity>
+        </Link>
+
+        <Text style={estilos.tituloCabecalho}>
+          Histórico de chamados
+        </Text>
 
         <View style={{ width: 20 }} />
+
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
 
         <View style={estilos.caixaBusca}>
           <Ionicons name="search" size={16} color="#7a7a7a" />
+
           <TextInput
             placeholder="Buscar chamado..."
             placeholderTextColor="#7a7a7a"
             style={estilos.input}
+            value={busca}
+            onChangeText={setBusca}
           />
         </View>
 
@@ -90,36 +113,43 @@ export default function HistoricoChamados() {
         </View>
 
         {chamadosFiltrados.map(item => (
-          <View key={item.id} style={estilos.card}>
 
-            <View style={estilos.linhaEntre}>
-              <Text style={estilos.titulo}>{item.titulo}</Text>
-              <Text style={estilos.data}>{item.data}</Text>
-            </View>
+            <TouchableOpacity activeOpacity={0.9}>
 
-            <View style={estilos.linhaStatus}>
-              <View style={[estilos.ponto, { backgroundColor: item.cor }]} />
-              <Text style={estilos.status}>{item.statusLabel}</Text>
-              <Text style={estilos.local}>{item.local}</Text>
-              <Text style={estilos.setor}>{item.setor}</Text>
-            </View>
+              <View style={estilos.card}>
 
-            <View style={estilos.divisor} />
+                <View style={estilos.linhaEntre}>
+                  <Text style={estilos.titulo}>{item.titulo}</Text>
+                  <Text style={estilos.data}>{item.data}</Text>
+                </View>
 
-            <Text style={estilos.funcionario}>Funcionário: {item.funcionario}</Text>
-            <Text style={estilos.descricao}>{item.descricao}</Text>
+                <View style={estilos.linhaStatus}>
+                  <View style={[estilos.ponto, { backgroundColor: item.cor }]} />
+                  <Text style={estilos.status}>{item.statusLabel}</Text>
+                  <Text style={estilos.local}>{item.local}</Text>
+                  <Text style={estilos.setor}>{item.setor}</Text>
+                </View>
 
-            <Image source={item.imagem} style={estilos.imagem} />
-          </View>
+                <View style={estilos.divisor} />
+
+                <Text style={estilos.funcionario}>
+                  Funcionário: {item.funcionario}
+                </Text>
+
+                <Text style={estilos.descricao}>
+                  {item.descricao}
+                </Text>
+
+                <Image source={item.imagem} style={estilos.imagem} />
+
+              </View>
+
+            </TouchableOpacity>
+
+
         ))}
 
       </ScrollView>
-
-      <View style={estilos.barraInferior}>
-        <Ionicons name="person" size={22} color="#fff" />
-        <Ionicons name="home" size={22} color="#fff" />
-        <MaterialIcons name="menu" size={24} color="#fff" />
-      </View>
 
     </View>
   );
@@ -141,7 +171,10 @@ function Filtro({ texto, valor, ativo, setFiltro, cor }) {
       ]}
     >
       <View style={[estilos.pontoPequeno, { backgroundColor: cor }]} />
-      <Text style={[estilos.textoFiltro, { color: cor }]}>{texto}</Text>
+
+      <Text style={[estilos.textoFiltro, { color: cor }]}>
+        {texto}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -153,7 +186,7 @@ const estilos = StyleSheet.create({
   },
 
   cabecalho: {
-    backgroundColor: '#4B1FB3',
+    backgroundColor: '#4F46E5',
     paddingTop: 20,
     paddingBottom: 16,
     paddingHorizontal: 16,
