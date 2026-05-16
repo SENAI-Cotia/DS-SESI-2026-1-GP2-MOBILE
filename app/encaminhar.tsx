@@ -10,6 +10,7 @@ import {
   ScrollView
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Link } from 'expo-router';
 
 export default function EncaminharChamados() {
   const [selecionado, setSelecionado] = useState<number | null>(null);
@@ -41,13 +42,18 @@ export default function EncaminharChamados() {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#5D3FD3" />
 
-
       <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="arrow-back" size={24} color="#FFF" />
-        </TouchableOpacity>
 
-        <Text style={styles.headerTitle}>Encaminhar chamados</Text>
+        <Link href={"/"} asChild>
+          <TouchableOpacity>
+            <Ionicons name="arrow-back" size={24} color="#FFF" />
+          </TouchableOpacity>
+        </Link>
+
+        <Text style={styles.headerTitle}>
+          Encaminhar chamados
+        </Text>
+
       </View>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
@@ -70,13 +76,19 @@ export default function EncaminharChamados() {
           </Text>
 
           <View style={styles.cardFooter}>
-            <Text style={styles.footerLeft}>Funcionário: Gustavo</Text>
-            <Text style={styles.footerRight}>09 de abril, 08:32hr</Text>
+            <Text style={styles.footerLeft}>
+              Funcionário: Gustavo
+            </Text>
+
+            <Text style={styles.footerRight}>
+              09 de abril, 08:32hr
+            </Text>
           </View>
         </View>
 
-
-        <Text style={styles.sectionTitle}>Enviar chamado para:</Text>
+        <Text style={styles.sectionTitle}>
+          Enviar chamado para:
+        </Text>
 
         {funcionarios.map((item) => (
           <TouchableOpacity
@@ -97,18 +109,18 @@ export default function EncaminharChamados() {
         ))}
 
         {selecionado && (
-          <TouchableOpacity style={styles.botao}>
-            <Text style={styles.botaoTexto}>Encaminhar chamado</Text>
-          </TouchableOpacity>
+
+          <Link href={"/"} asChild>
+            <TouchableOpacity style={styles.botao}>
+              <Text style={styles.botaoTexto}>
+                Encaminhar chamado
+              </Text>
+            </TouchableOpacity>
+          </Link>
+
         )}
+
       </ScrollView>
-
-
-      <View style={styles.bottomNav}>
-        <Ionicons name="person" size={24} color="#ad98ff" />
-        <Ionicons name="home" size={28} color="#FFF" />
-        <Ionicons name="menu" size={24} color="#ad98ff" />
-      </View>
     </SafeAreaView>
   );
 }

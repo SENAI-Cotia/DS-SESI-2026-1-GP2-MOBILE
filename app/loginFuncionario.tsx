@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import {
   Image,
   KeyboardAvoidingView,
@@ -19,10 +18,10 @@ export default function LoginScreen() {
   const [cpf, setCpf] = useState('');
   const [senha, setSenha] = useState('');
   const [secureText, setSecureText] = useState(true);
-  const [lembreMe, setLembreMe] = useState(false); 
+  const [lembreMe, setLembreMe] = useState(false);
   const router = useRouter()
 
-  {/*Dá um limite de caracteres, e permite apenas número nesse campo*/}
+  {/*Dá um limite de caracteres, e permite apenas número nesse campo*/ }
   const handleCpfChange = (text: string) => {
     const apenasNumeros = text.replace(/[^0-9]/g, '');
     if (apenasNumeros.length <= 11) {
@@ -33,27 +32,26 @@ export default function LoginScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#3C1BB8" />
-      
+
       <View style={styles.header}>
-        <Image 
+        <Image
           source={require('../assets/images/logo.png')}
           style={styles.logo}
           resizeMode="contain"
         />
       </View>
 
-{/*Sobe os componentes da tela quando a pessoa vai digitar algo (no celular)*/}
-      <KeyboardAvoidingView 
+      {/*Sobe os componentes da tela quando a pessoa vai digitar algo (no celular)*/}
+      <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.card}> 
+        style={styles.card}>
 
-        <Text style={styles.title}>Bem vindo, vamos começar!</Text>
         <Text style={styles.subtitle}>Faça login na sua conta!</Text>
 
         {/* Campo CPF */}
         <View style={styles.inputGroup}>
           <Text style={styles.label}>CPF</Text>
-          <TextInput 
+          <TextInput
             style={styles.input}
             placeholder="00000000000"
             placeholderTextColor="#999"
@@ -70,20 +68,20 @@ export default function LoginScreen() {
 
           <View style={{ width: '100%' }}>
             <View style={styles.passwordContainer}>
-              
+
               <TextInput
                 style={styles.inputPassword}
                 placeholder="Insira sua senha"
                 placeholderTextColor="#999"
                 secureTextEntry={secureText}
                 value={senha}
-                onChangeText={setSenha}/>
+                onChangeText={setSenha} />
 
               <TouchableOpacity onPress={() => setSecureText(!secureText)}>
-                <Ionicons 
-                  name={secureText ? "eye-off-outline" : "eye-outline"} 
-                  size={22} 
-                  color="#999"/>
+                <Ionicons
+                  name={secureText ? "eye-off-outline" : "eye-outline"}
+                  size={22}
+                  color="#999" />
               </TouchableOpacity>
 
             </View>
@@ -91,14 +89,15 @@ export default function LoginScreen() {
         </View>
 
         <View style={styles.rowLinks}>
-          <TouchableOpacity 
-            style={styles.rememberMe} 
+          <TouchableOpacity
+            style={styles.rememberMe}
             onPress={() => setLembreMe(!lembreMe)}>
 
-            <Ionicons 
-              name={lembreMe ? "checkmark-circle" : "ellipse-outline"} 
-              size={20} 
-              color={lembreMe ? "#3C1BB8" : "#999"} 
+
+            <Ionicons
+              name={lembreMe ? "checkmark-circle" : "ellipse-outline"}
+              size={20}
+              color={lembreMe ? "#4F46E5" : "#999"}
             />
             <Text style={[styles.linkTextSmall, { marginLeft: 5 }]}>
               Lembre de mim
@@ -110,23 +109,26 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={() => router.push("/(tabs)")}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
+        <Link href={"/homeFuncionario"} style={styles.button} >
+          <TouchableOpacity  >
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+        </Link>
+
 
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3C1BB8'
+    backgroundColor: '#4F46E5'
   },
 
   header: {
-    height: '25%', 
+    height: '25%',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -178,7 +180,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 50,
     borderWidth: 1,
-    borderColor: '#3C1BB8',
+    borderColor: '#4F46E5',
     borderRadius: 12,
     paddingHorizontal: 15,
     backgroundColor: '#F9F9F9',
@@ -192,7 +194,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 50,
     borderWidth: 1,
-    borderColor: '#3C1BB8',
+    borderColor: '#4F46E5',
     borderRadius: 12,
     paddingHorizontal: 15,
     backgroundColor: '#F9F9F9',
@@ -229,12 +231,14 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     height: 55,
-    backgroundColor: '#3C1BB8',
+    backgroundColor: '#4F46E5',
     borderRadius: 15,
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 5,
-    marginTop: 50
+    marginTop: 50,
+    textAlign: 'center'
   },
 
   buttonText: {
