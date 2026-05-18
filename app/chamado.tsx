@@ -5,7 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  ScrollView
+  ScrollView,
+  SafeAreaView
 } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
@@ -23,9 +24,9 @@ export default function NovoChamado() {
 
       input.type = "file";
 
-      input.onchange = (event) => {
+      input.onchange = (event: any) => {
 
-        const arquivo = event.target.files[0];
+        const arquivo = event.target?.files?.[0];
 
         if (arquivo) {
           setArquivoNome(arquivo.name);
@@ -37,143 +38,160 @@ export default function NovoChamado() {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView style={styles.container}>
 
-      <View style={styles.cabecalho}>
+        <View style={styles.cabecalho}>
 
-        <Link href={"/"} asChild>
-          <TouchableOpacity>
-            <Ionicons name="arrow-back" size={22} color="#fff" />
+          <Link href={"/homeFuncionario"} asChild>
+            <TouchableOpacity>
+              <Ionicons name="arrow-back" size={22} color="#fff" />
+            </TouchableOpacity>
+          </Link>
+
+          <Text style={styles.tituloCabecalho}>Novo chamado</Text>
+
+        </View>
+
+        <Text style={styles.titulo}>Qual é o seu problema?</Text>
+
+        <Text style={styles.rotulo}>Categoria do Problema</Text>
+
+        <View style={styles.categorias}>
+
+          <TouchableOpacity
+            style={[
+              styles.cartao,
+              categoriaSelecionada === 'ti' && styles.cartaoSelecionado
+            ]}
+            onPress={() => setCategoriaSelecionada('ti')}
+          >
+            <MaterialIcons
+              name="computer"
+              size={24}
+              color={categoriaSelecionada === 'ti' ? '#fff' : '#4F46E5'}
+            />
+
+            <View>
+              <Text
+                style={[
+                  styles.cartaoTitulo,
+                  categoriaSelecionada === 'ti' && styles.textoSelecionado
+                ]}
+              >
+                Informática (TI)
+              </Text>
+
+              <Text
+                style={[
+                  styles.cartaoSub,
+                  categoriaSelecionada === 'ti' && styles.textoSelecionado
+                ]}
+              >
+                Escritório
+              </Text>
+            </View>
           </TouchableOpacity>
-        </Link>
 
-        <Text style={styles.tituloCabecalho}>Novo chamado</Text>
+          <TouchableOpacity
+            style={[
+              styles.cartao,
+              categoriaSelecionada === 'producao' && styles.cartaoSelecionado
+            ]}
+            onPress={() => setCategoriaSelecionada('producao')}
+          >
+            <MaterialIcons
+              name="factory"
+              size={24}
+              color={categoriaSelecionada === 'producao' ? '#fff' : '#4F46E5'}
+            />
 
-      </View>
-
-      <Text style={styles.titulo}>Qual é o seu problema?</Text>
-
-      <Text style={styles.rotulo}>Categoria do Problema</Text>
-
-      <View style={styles.categorias}>
-
-        <TouchableOpacity
-          style={[
-            styles.cartao,
-            categoriaSelecionada === 'ti' && styles.cartaoSelecionado
-          ]}
-          onPress={() => setCategoriaSelecionada('ti')}
-        >
-          <MaterialIcons
-            name="computer"
-            size={24}
-            color={categoriaSelecionada === 'ti' ? '#fff' : '#4F46E5'}
-          />
-
-          <View>
             <Text
               style={[
                 styles.cartaoTitulo,
-                categoriaSelecionada === 'ti' && styles.textoSelecionado
+                categoriaSelecionada === 'producao' && styles.textoSelecionado
               ]}
             >
-              Informática (TI)
+              Produção
             </Text>
+          </TouchableOpacity>
 
-            <Text
-              style={[
-                styles.cartaoSub,
-                categoriaSelecionada === 'ti' && styles.textoSelecionado
-              ]}
-            >
-              Escritório
-            </Text>
-          </View>
-        </TouchableOpacity>
+        </View>
+
+        <Text style={styles.rotulo}>Título</Text>
+
+        <TextInput
+          placeholder="Adicione um título"
+          placeholderTextColor="#999"
+          multiline
+          style={styles.areaTitulo}
+        />
+
+        <Text style={styles.rotulo}>O que aconteceu?</Text>
+
+        <TextInput
+          placeholder="Descreva brevemente o problema"
+          placeholderTextColor="#999"
+          multiline
+          style={styles.areaTexto}
+        />
+
+        <Text style={styles.rotulo}>Anexar arquivo (Opcional)</Text>
 
         <TouchableOpacity
-          style={[
-            styles.cartao,
-            categoriaSelecionada === 'producao' && styles.cartaoSelecionado
-          ]}
-          onPress={() => setCategoriaSelecionada('producao')}
+          style={styles.foto}
+          onPress={anexarArquivo}
         >
-          <MaterialIcons
-            name="factory"
-            size={24}
-            color={categoriaSelecionada === 'producao' ? '#fff' : '#4F46E5'}
-          />
+          <Ionicons name="document-attach" size={20} color="#4F46E5" />
 
-          <Text
-            style={[
-              styles.cartaoTitulo,
-              categoriaSelecionada === 'producao' && styles.textoSelecionado
-            ]}
-          >
-            Produção
+          <Text style={styles.textoFoto}>
+            Selecionar arquivo do computador
           </Text>
         </TouchableOpacity>
 
-      </View>
+        {arquivoNome !== '' && (
+          <View style={styles.arquivoBox}>
+            <Ionicons name="document-text" size={18} color="#4F46E5" />
 
-      <Text style={styles.rotulo}>Título</Text>
+            <Text style={styles.nomeArquivo}>
+              {arquivoNome}
+            </Text>
+          </View>
+        )}
 
-      <TextInput
-        placeholder="Adicione um título"
-        placeholderTextColor="#999"
-        multiline
-        style={styles.areaTitulo}
-      />
+        <Text style={styles.rotulo}>Adicione sua Localização</Text>
 
-      <Text style={styles.rotulo}>O que aconteceu?</Text>
+        <TextInput
+          placeholder="Administração, Almoxerifado ou Produção"
+          placeholderTextColor="#999"
+          style={styles.input}
+        />
 
-      <TextInput
-        placeholder="Descreva brevemente o problema"
-        placeholderTextColor="#999"
-        multiline
-        style={styles.areaTexto}
-      />
-
-      <Text style={styles.rotulo}>Anexar arquivo (Opcional)</Text>
-
-      <TouchableOpacity
-        style={styles.foto}
-        onPress={anexarArquivo}
-      >
-        <Ionicons name="document-attach" size={20} color="#4F46E5" />
-
-        <Text style={styles.textoFoto}>
-          Selecionar arquivo do computador
-        </Text>
-      </TouchableOpacity>
-
-      {arquivoNome !== '' && (
-        <View style={styles.arquivoBox}>
-          <Ionicons name="document-text" size={18} color="#4F46E5" />
-
-          <Text style={styles.nomeArquivo}>
-            {arquivoNome}
-          </Text>
-        </View>
-      )}
-
-      <Text style={styles.rotulo}>Adicione sua Localização</Text>
-
-      <TextInput
-        placeholder="Administração, Almoxerifado ou Produção"
-        placeholderTextColor="#999"
-        style={styles.input}
-      />
-
-      <View style={styles.containerBtn}>
-        <Link href={"/homeFuncionario"} asChild>
-          <TouchableOpacity style={styles.botao}>
-            <Text style={styles.textoBotao}>Enviar chamado</Text>
-          </TouchableOpacity>
+        <View style={styles.containerBtn}>
+          <Link href={"/homeFuncionario"} asChild>
+            <TouchableOpacity style={styles.botao}>
+              <Text style={styles.textoBotao}>Enviar chamado</Text>
+            </TouchableOpacity>
           </Link>
+        </View>
+
+      </ScrollView>
+
+      <View style={styles.bottomNav}>
+        <Link href={"/perfilFuncionario"}>
+          <Ionicons name="person" size={26} color="#FFF" />
+        </Link>
+
+        <Link href={"/homeFuncionario"}>
+          <Ionicons name="home" size={26} color="#FFF" />
+        </Link>
+
+        <Link href={"/historico"}>
+          <Ionicons name="time" size={26} color="#FFF" />
+        </Link>
       </View>
 
-    </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -256,7 +274,7 @@ const styles = StyleSheet.create({
     color: '#777'
   },
 
-    areaTitulo: {
+  areaTitulo: {
     height: 40,
     backgroundColor: '#F9F4F4',
     borderRadius: 10,
@@ -328,7 +346,7 @@ const styles = StyleSheet.create({
   containerBtn: {
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 40
+    marginBottom: 90
   },
 
   botao: {
@@ -342,5 +360,16 @@ const styles = StyleSheet.create({
   textoBotao: {
     color: '#fff',
     fontWeight: '600'
-  }
+  },
+
+  bottomNav: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 60,
+    backgroundColor: '#5D3FD3',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
 });

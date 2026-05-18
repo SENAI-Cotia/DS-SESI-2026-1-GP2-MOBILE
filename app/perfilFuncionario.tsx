@@ -94,12 +94,11 @@ export default function Perfil() {
         </View>
       </ScrollView>
 
-      {/* Bottom Navigation */}
+
       <View style={styles.bottomNav}>
-        <Ionicons name="person" size={26} color="#FFF" />
-        <Ionicons name="home" size={26} color="#FFF" />
-        {/* Ícone de histórico */}
-        <Ionicons name="time" size={26} color="#FFF" />
+        <Link href={"/perfilFuncionario"}><Ionicons name="person" size={26} color="#ffffffb6"/></Link>
+        <Link href={"/homeFuncionario"}><Ionicons name="home" size={26} color="#FFF" /></Link>  
+        <Link href={"/historico"}><Ionicons name="time" size={26} color="#FFF" /></Link> 
       </View>
     </SafeAreaView>
   );
