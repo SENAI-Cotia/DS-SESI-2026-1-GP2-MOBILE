@@ -44,7 +44,7 @@ export default function EncaminharChamados() {
 
       <View style={styles.header}>
 
-        <Link href={"/"} asChild>
+        <Link href={"/homeFuncionario"} asChild>
           <TouchableOpacity>
             <Ionicons name="arrow-back" size={24} color="#FFF" />
           </TouchableOpacity>
@@ -110,7 +110,7 @@ export default function EncaminharChamados() {
 
         {selecionado && (
 
-          <Link href={"/"} asChild>
+          <Link href={"/homeFuncionario"} asChild>
             <TouchableOpacity style={styles.botao}>
               <Text style={styles.botaoTexto}>
                 Encaminhar chamado

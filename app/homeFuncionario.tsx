@@ -137,6 +137,13 @@ export default function Index() {
         </View>
 
       </ScrollView>
+
+      <View style={style.bottomNav}>
+        <Link href={"/perfilFuncionario"}><Ionicons name="person" size={26} color="#FFF"/></Link>
+        <Link href={"/homeFuncionario"}><Ionicons name="home" size={26} color="#ffffffb6" /></Link>  
+        <Link href={"/historico"}><Ionicons name="time" size={26} color="#FFF" /></Link> 
+      </View>
+
     </SafeAreaView>
   )
 }
@@ -326,4 +333,15 @@ const style = StyleSheet.create({
     fontWeight: "bold",
   },
 
-})
+  
+  bottomNav: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 60,
+    backgroundColor: '#5D3FD3',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+});
