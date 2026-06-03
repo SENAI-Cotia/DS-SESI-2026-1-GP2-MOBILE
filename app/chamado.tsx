@@ -5,8 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  ScrollView,
-  SafeAreaView
+  ScrollView
 } from 'react-native';
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
@@ -39,18 +38,16 @@ export default function NovoChamado() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={styles.container}>
+    <ScrollView style={styles.container}>
 
-        <View style={styles.cabecalho}>
+      <View style={styles.cabecalho}>
+        <Ionicons name="arrow-back" size={22} color="#fff" />
+        <Text style={styles.tituloCabecalho}>Novo chamado</Text>
+      </View>
 
-          <Link href={"/homeFuncionario"} asChild>
-            <TouchableOpacity>
-              <Ionicons name="arrow-back" size={22} color="#fff" />
-            </TouchableOpacity>
-          </Link>
+      <Text style={styles.titulo}>Qual é o seu problema?</Text>
 
-          <Text style={styles.tituloCabecalho}>Novo chamado</Text>
+      <Text style={styles.rotulo}>Categoria do Problema</Text>
 
       <View style={styles.categorias}>
         <TouchableOpacity style={styles.cartao}>
@@ -114,7 +111,7 @@ const styles = StyleSheet.create({
   },
 
   cabecalho: {
-    backgroundColor: '#4F46E5',
+    backgroundColor: '#4410B4',
     paddingTop: 15,
     paddingBottom: 20,
     paddingHorizontal: 20,
@@ -122,13 +119,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
+    elevation: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
   },
 
   tituloCabecalho: {
     color: '#fff',
     fontSize: 18,
     fontWeight: '600',
-    marginLeft: 90
+    marginLeft: 100
   },
 
   titulo: {
@@ -137,7 +142,7 @@ const styles = StyleSheet.create({
     color: '#5B12D6',
     textAlign: 'center',
     marginVertical: 40,
-    color: '#4F46E5'
+    color: '#4410B4'
   },
 
   rotulo: {
@@ -189,29 +194,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  areaTitulo: {
-    height: 40,
+  areaTexto: {
+    height: 160,
     backgroundColor: '#F9F4F4',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#4F46E5',
+    borderColor: '#7A5CFF',
     marginHorizontal: 20,
     marginBottom: 20,
     padding: 12,
     textAlignVertical: 'top',
-  },
-
-  areaTexto: {
-    height: 150,
-    backgroundColor: '#FFF',
-    borderRadius: 12,
-    borderWidth: 1.2,
-    borderColor: '#9B6BFF',
-    marginHorizontal: 18,
-    marginBottom: 28,
-    padding: 14,
-    textAlignVertical: 'top',
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -233,29 +226,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#7A5CFF',
     backgroundColor: '#F9F4F4',
-    marginBottom: 15,
+    marginBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
   },
 
   textoFoto: {
-    color: '#777',
-    fontSize: 14,
-  },
-
-  arquivoBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#ECE8FF',
-    marginHorizontal: 20,
-    padding: 12,
-    borderRadius: 10,
-    marginBottom: 20,
-    gap: 10
-  },
-
-  nomeArquivo: {
-    color: '#4F46E5',
-    fontSize: 14,
-    flex: 1
+    color: '#777'
   },
 
   input: {
@@ -266,35 +248,34 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     padding: 12,
     marginBottom: 30,
-  },
-
-  containerBtn: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 90
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
   },
 
   botao: {
-    backgroundColor: '#4F46E5',
-    width: 180,
+    backgroundColor: '#4410B4',
+    marginHorizontal: 60,
     padding: 15,
     borderRadius: 12,
     alignItems: 'center',
+    elevation: 5,
+    marginBottom: 40,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
   },
 
   textoBotao: {
     color: '#fff',
     fontWeight: '600'
-  },
-
-  bottomNav: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    height: 60,
-    backgroundColor: '#5D3FD3',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
+  }
 });
