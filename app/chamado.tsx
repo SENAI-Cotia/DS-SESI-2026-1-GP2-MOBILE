@@ -5,17 +5,24 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  ScrollView
+  ScrollView,
 } from 'react-native';
+
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 export default function NovoChamado() {
   return (
-    <ScrollView style={styles.container}>
-
+    <ScrollView
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
       <View style={styles.cabecalho}>
-        <Ionicons name="arrow-back" size={22} color="#fff" />
+        <TouchableOpacity>
+          <Ionicons name="arrow-back" size={24} color="#fff" />
+        </TouchableOpacity>
+
         <Text style={styles.tituloCabecalho}>Novo chamado</Text>
+        <View style={{ width: 24 }} />
       </View>
 
       <Text style={styles.titulo}>Qual é o seu problema?</Text>
@@ -24,16 +31,24 @@ export default function NovoChamado() {
 
       <View style={styles.categorias}>
         <TouchableOpacity style={styles.cartao}>
-          <MaterialIcons name="computer" size={24} color="#4410B4" />
-          <View>
-            <Text style={styles.cartaoTitulo}>Informática (TI)</Text>
-            <Text style={styles.cartaoSub}>Escritório</Text>
-          </View>
+          <MaterialIcons name="computer" size={22} color="#6D28D9" />
+
+          <Text style={styles.cartaoTitulo}>Informática</Text>
+          <Text style={styles.cartaoSub}>Escritório</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.cartao}>
-          <MaterialIcons name="factory" size={24} color="#4410B4" />
+          <MaterialIcons name="factory" size={22} color="#6D28D9" />
+
           <Text style={styles.cartaoTitulo}>Produção</Text>
+          <Text style={styles.cartaoSub}>Fábrica</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.cartao}>
+          <Ionicons name="document" size={22} color="#6D28D9" />
+
+          <Text style={styles.cartaoTitulo}>Administrativo</Text>
+          <Text style={styles.cartaoSub}>Salas</Text>
         </TouchableOpacity>
       </View>
 
@@ -41,7 +56,7 @@ export default function NovoChamado() {
 
       <TextInput
         placeholder="Descreva brevemente o problema"
-        placeholderTextColor="#999"
+        placeholderTextColor="#9A9A9A"
         multiline
         style={styles.areaTexto}
       />
@@ -49,7 +64,8 @@ export default function NovoChamado() {
       <Text style={styles.rotulo}>Anexar foto (Opcional)</Text>
 
       <TouchableOpacity style={styles.foto}>
-        <Ionicons name="image" size={20} color="#7A5CFF" />
+        <Ionicons name="image" size={18} color="#7A5CFF" />
+
         <Text style={styles.textoFoto}>Adicionar foto</Text>
       </TouchableOpacity>
 
@@ -57,14 +73,13 @@ export default function NovoChamado() {
 
       <TextInput
         placeholder="Administração, Almoxerifado ou Produção"
-        placeholderTextColor="#999"
+        placeholderTextColor="#9A9A9A"
         style={styles.input}
       />
 
       <TouchableOpacity style={styles.botao}>
         <Text style={styles.textoBotao}>Enviar chamado</Text>
       </TouchableOpacity>
-
     </ScrollView>
   );
 }
@@ -72,170 +87,180 @@ export default function NovoChamado() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fffefe'
+    backgroundColor: '#F6F3F3',
   },
 
   cabecalho: {
-    backgroundColor: '#4410B4',
-    paddingTop: 15,
-    paddingBottom: 20,
+    backgroundColor: '#4B00C8',
+    paddingTop: 18,
+    paddingBottom: 22,
     paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-    elevation: 8,
-    shadowColor: "#000",
+    justifyContent: 'space-between',
+    borderBottomLeftRadius: 18,
+    borderBottomRightRadius: 18,
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 8,
+      height: 5,
     },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
+    shadowOpacity: 0.18,
+    shadowRadius: 8,
+    elevation: 8,
   },
 
   tituloCabecalho: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
-    marginLeft: 100
+    color: '#FFF',
+    fontSize: 20,
+    fontWeight: '700',
   },
 
   titulo: {
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#5B12D6',
     textAlign: 'center',
-    marginVertical: 40,
-    color: '#4410B4'
+    marginTop: 40,
+    marginBottom: 42,
   },
 
   rotulo: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginHorizontal: 20,
-    marginBottom: 15,
-    color: '#333'
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#222',
+    marginBottom: 16,
+    marginHorizontal: 18,
   },
 
   categorias: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 20,
-    marginBottom: 20
+    marginHorizontal: 18,
+    marginBottom: 32,
   },
 
   cartao: {
-    flex: 1,
-    flexDirection: 'row',
+    width: '31%',
+    height: 98,
+    backgroundColor: '#FFF',
+    borderWidth: 1.3,
+    borderColor: '#9B6BFF',
+    borderRadius: 18,
     alignItems: 'center',
-    gap: 10,
-    padding: 12,
-    marginRight: 10,
-    backgroundColor: '#F9F4F4',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#7A5CFF',
-    elevation: 3,
-    shadowColor: "#000",
+    justifyContent: 'center',
+    shadowColor: '#8B5CF6',
     shadowOffset: {
       width: 0,
-      height: 8,
+      height: 3,
     },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
+    elevation: 4,
   },
 
   cartaoTitulo: {
+    marginTop: 8,
     fontSize: 13,
-    fontWeight: '600',
-    color: '#4410B4'
+    fontWeight: '700',
+    color: '#6D28D9',
+    textAlign: 'center',
   },
 
   cartaoSub: {
-    fontSize: 13,
-    color: '#777'
+    marginTop: 2,
+    fontSize: 11,
+    color: '#777',
+    textAlign: 'center',
   },
 
   areaTexto: {
-    height: 160,
-    backgroundColor: '#F9F4F4',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#7A5CFF',
-    marginHorizontal: 20,
-    marginBottom: 20,
-    padding: 12,
+    height: 150,
+    backgroundColor: '#FFF',
+    borderRadius: 12,
+    borderWidth: 1.2,
+    borderColor: '#9B6BFF',
+    marginHorizontal: 18,
+    marginBottom: 28,
+    padding: 14,
     textAlignVertical: 'top',
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 8,
+      height: 4,
     },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    elevation: 4,
   },
 
   foto: {
+    height: 52,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 10,
-    marginHorizontal: 20,
-    padding: 15,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#7A5CFF',
-    backgroundColor: '#F9F4F4',
-    marginBottom: 20,
-    shadowColor: "#000",
+    gap: 8,
+    backgroundColor: '#FFF',
+    borderWidth: 1.2,
+    borderColor: '#9B6BFF',
+    borderRadius: 12,
+    marginHorizontal: 18,
+    marginBottom: 28,
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 8,
+      height: 4,
     },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    elevation: 4,
   },
 
   textoFoto: {
-    color: '#777'
+    color: '#777',
+    fontSize: 14,
   },
 
   input: {
-    backgroundColor: '#F9F4F4',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#7A5CFF',
-    marginHorizontal: 20,
-    padding: 12,
-    marginBottom: 30,
-    shadowColor: "#000",
+    height: 52,
+    backgroundColor: '#FFF',
+    borderRadius: 12,
+    borderWidth: 1.2,
+    borderColor: '#9B6BFF',
+    marginHorizontal: 18,
+    marginBottom: 34,
+    paddingHorizontal: 14,
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 8,
+      height: 4,
     },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    elevation: 4,
   },
 
   botao: {
-    backgroundColor: '#4410B4',
-    marginHorizontal: 60,
-    padding: 15,
-    borderRadius: 12,
-    alignItems: 'center',
-    elevation: 5,
+    height: 48,
+    backgroundColor: '#4B00C8',
+    borderRadius: 14,
+    marginHorizontal: 55,
     marginBottom: 40,
-    shadowColor: "#000",
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#4B00C8',
     shadowOffset: {
       width: 0,
-      height: 8,
+      height: 5,
     },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 6,
   },
 
   textoBotao: {
-    color: '#fff',
-    fontWeight: '600'
-  }
+    color: '#FFF',
+    fontSize: 15,
+    fontWeight: '700',
+  },
 });
