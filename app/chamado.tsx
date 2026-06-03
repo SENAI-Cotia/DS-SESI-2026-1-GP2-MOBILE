@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -11,7 +11,13 @@ import {
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 
+interface chamado {
+
+}
+
 export default function NovoChamado() {
+
+
 
   const [arquivoNome, setArquivoNome] = useState('');
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');

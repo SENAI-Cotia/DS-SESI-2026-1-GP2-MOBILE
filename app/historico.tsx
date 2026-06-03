@@ -1,62 +1,35 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  ScrollView,
-  Image,
-  TouchableOpacity
-} from 'react-native';
+import { api } from '@/lib/api';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
+import { useEffect, useState } from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from 'react-native';
+
+interface Chamado {
+  id: number,
+  titulo: string,
+  descricao: string,
+  status: string,
+  prioridade: string,
+  sala: string
+}
 
 export default function HistoricoChamados() {
+
+  const [chamados, setChamados] = useState<Chamado[]>([])
 
   const [filtroAtivo, setFiltroAtivo] = useState('todos');
   const [busca, setBusca] = useState('');
 
-  const chamados = [
-    {
-      id: 1,
-      titulo: 'Computador Travando',
-      data: '12 de abril, 12:30hr',
-      status: 'aberto',
-      statusLabel: 'Em aberto',
-      local: 'Sala 5',
-      setor: 'Administração',
-      funcionario: 'João',
-      descricao: 'O computador está travando e muito lento ao abrir qualquer tipo de programa.',
-      imagem: require('../assets/images/monitorquebrado.webp'),
-      cor: '#53bd0c'
-    },
-    {
-      id: 2,
-      titulo: 'Máquina com defeito',
-      data: '09 de abril, 08:23hr',
-      status: 'resolvido',
-      statusLabel: 'Resolvido',
-      local: 'Oficina 12',
-      setor: 'Produção',
-      funcionario: 'Gustavo',
-      descricao: 'A máquina não está ligando, e suas engrenagens não rodam.',
-      imagem: require('../assets/images/maquinaquebrada.jpg'),
-      cor: '#7B61FF'
-    },
-    {
-      id: 3,
-      titulo: 'Sistema travado',
-      data: '08 de abril, 10:00hr',
-      status: 'cancelado',
-      statusLabel: 'Cancelado',
-      local: 'Sala 2',
-      setor: 'TI',
-      funcionario: 'Maria',
-      descricao: 'Chamado cancelado pelo usuário.',
-      imagem: require('../assets/images/sistematravado.png'),
-      cor: '#FF5A5A'
-    }
-  ];
+  useEffect(() => {
+    api.get("/chamados").then(response => setChamados(response.data))
+  }, [])
 
   const chamadosFiltrados = chamados.filter(item => {
 
@@ -65,10 +38,7 @@ export default function HistoricoChamados() {
 
     const filtroBusca =
       item.titulo.toLowerCase().includes(busca.toLowerCase()) ||
-      item.descricao.toLowerCase().includes(busca.toLowerCase()) ||
-      item.funcionario.toLowerCase().includes(busca.toLowerCase()) ||
-      item.setor.toLowerCase().includes(busca.toLowerCase());
-
+      item.descricao.toLowerCase().includes(busca.toLowerCase()) 
     return filtroStatus && filtroBusca;
   });
 
@@ -105,12 +75,12 @@ export default function HistoricoChamados() {
           />
         </View>
 
-        <View style={estilos.filtros}>
+        {/* <View style={estilos.filtros}>
           <Filtro texto="Resolvidos" valor="resolvido" ativo={filtroAtivo} setFiltro={setFiltroAtivo} cor="#7B61FF" />
           <Filtro texto="Em aberto" valor="aberto" ativo={filtroAtivo} setFiltro={setFiltroAtivo} cor="#53bd0c" />
           <Filtro texto="Cancelado" valor="cancelado" ativo={filtroAtivo} setFiltro={setFiltroAtivo} cor="#FF5A5A" />
           <Filtro texto="Todos" valor="todos" ativo={filtroAtivo} setFiltro={setFiltroAtivo} cor="#7B61FF" />
-        </View>
+        </View> */}
 
         {chamadosFiltrados.map(item => (
 
@@ -120,28 +90,25 @@ export default function HistoricoChamados() {
 
                 <View style={estilos.linhaEntre}>
                   <Text style={estilos.titulo}>{item.titulo}</Text>
-                  <Text style={estilos.data}>{item.data}</Text>
+                  {/* <Text style={estilos.data}>{item.data}</Text> */}
                 </View>
 
                 <View style={estilos.linhaStatus}>
-                  <View style={[estilos.ponto, { backgroundColor: item.cor }]} />
-                  <Text style={estilos.status}>{item.statusLabel}</Text>
-                  <Text style={estilos.local}>{item.local}</Text>
-                  <Text style={estilos.setor}>{item.setor}</Text>
+                  {/* <View style={[estilos.ponto, { backgroundColor: item.cor }]} /> */}
+                  <Text style={estilos.status}>{item.status}</Text>
+                  <Text style={estilos.local}>{item.sala}</Text>
+                  {/* <Text style={estilos.setor}>{item.setor}</Text> */}
                 </View>
 
                 <View style={estilos.divisor} />
 
-                <Text style={estilos.funcionario}>
+                {/* <Text style={estilos.funcionario}>
                   Funcionário: {item.funcionario}
-                </Text>
+                </Text> */}
 
                 <Text style={estilos.descricao}>
                   {item.descricao}
                 </Text>
-
-                <Image source={item.imagem} style={estilos.imagem} />
-
               </View>
 
             </TouchableOpacity>
@@ -161,30 +128,30 @@ export default function HistoricoChamados() {
   );
 }
 
-function Filtro({ texto, valor, ativo, setFiltro, cor }) {
+// function Filtro({ texto, valor, ativo, setFiltro, cor }) {
 
-  const selecionado = ativo === valor;
+//   const selecionado = ativo === valor;
 
-  return (
-    <TouchableOpacity
-      onPress={() => setFiltro(valor)}
-      style={[
-        estilos.filtro,
-        {
-          borderColor: cor,
-          backgroundColor: selecionado ? cor + '20' : 'transparent'
-        }
-      ]}
-    >
-      <View style={[estilos.pontoPequeno, { backgroundColor: cor }]} />
+//   return (
+//     <TouchableOpacity
+//       onPress={() => setFiltro(valor)}
+//       style={[
+//         estilos.filtro,
+//         {
+//           borderColor: cor,
+//           backgroundColor: selecionado ? cor + '20' : 'transparent'
+//         }
+//       ]}
+//     >
+//       <View style={[estilos.pontoPequeno, { backgroundColor: cor }]} />
 
-      <Text style={[estilos.textoFiltro, { color: cor }]}>
-        {texto}
-      </Text>
-    </TouchableOpacity>
+//       <Text style={[estilos.textoFiltro, { color: cor }]}>
+//         {texto}
+//       </Text>
+//     </TouchableOpacity>
 
-  );
-}
+//   );
+// }
 
 const estilos = StyleSheet.create({
   container: {
