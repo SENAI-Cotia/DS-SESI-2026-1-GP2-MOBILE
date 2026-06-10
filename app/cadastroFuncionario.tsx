@@ -13,6 +13,9 @@ import {
 
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { Alert } from 'react-native';
+import { api } from '../api';
+
 export default function CadastroTecnico() {
     const [nome, setNome] = useState('');
     const [especialidade, setEspecialidade] = useState('');
@@ -21,6 +24,98 @@ export default function CadastroTecnico() {
 
     const [mostrarSenha, setMostrarSenha] = useState(true);
     const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(true);
+
+    const cadastrarFuncionario = async () => {
+
+        try {
+
+            if (!nome || !especialidade || !senha || !confirmarSenha) {
+
+                Alert.alert(
+
+                    "Erro",
+
+                    "Preencha todos os campos"
+
+                );
+
+                return;
+
+            }
+
+            if (senha !== confirmarSenha) {
+
+                Alert.alert(
+
+                    "Erro",
+
+                    "As senhas não coincidem"
+
+                );
+
+                return;
+
+            }
+
+            const response = await api.post(
+
+                "/cadastroFuncionario",
+
+                {
+
+                    nome,
+
+                    senha,
+
+                    departamento: especialidade
+
+                }
+
+            );
+
+            console.log("CADASTRO REALIZADO:", response.data);
+
+            Alert.alert(
+
+                "Sucesso",
+
+                "Funcionário cadastrado com sucesso!"
+
+            );
+
+        } catch (error: any) {
+
+            console.log("ERRO CADASTRO:", error?.response?.data || error.message);
+
+            Alert.alert(
+
+                "Erro",
+
+                error?.response?.data?.erro ||
+
+                error?.response?.data?.error ||
+
+                "Erro ao cadastrar funcionário"
+
+            );
+
+        }
+        if (senha !== confirmarSenha) {
+
+            Alert.alert(
+
+                "Erro",
+
+                "As senhas não coincidem"
+
+            );
+
+            return;
+
+        }
+
+    };
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -184,9 +279,14 @@ export default function CadastroTecnico() {
                         </View>
                     </View>
 
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>Cadastrar</Text>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={cadastrarFuncionario}>
+                        <Text style={styles.buttonText}>
+                            Cadastrar
+                        </Text>
                     </TouchableOpacity>
+
 
                 </View>
             </ScrollView>

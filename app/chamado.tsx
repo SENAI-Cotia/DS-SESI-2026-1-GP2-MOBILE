@@ -5,9 +5,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  ScrollView,
-  SafeAreaView
+  ScrollView
 } from 'react-native';
+
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 
@@ -44,171 +44,80 @@ export default function NovoChamado() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={styles.container}>
+    <ScrollView style={styles.container}>
 
-        <View style={styles.cabecalho}>
-
-          <Link href={"/homeFuncionario"} asChild>
-            <TouchableOpacity>
-              <Ionicons name="arrow-back" size={22} color="#fff" />
-            </TouchableOpacity>
-          </Link>
-
-          <Text style={styles.tituloCabecalho}>Novo chamado</Text>
-
-        </View>
-
-        <Text style={styles.titulo}>Qual é o seu problema?</Text>
-
-        <Text style={styles.rotulo}>Categoria do Problema</Text>
-
-        <View style={styles.categorias}>
-
-          <TouchableOpacity
-            style={[
-              styles.cartao,
-              categoriaSelecionada === 'ti' && styles.cartaoSelecionado
-            ]}
-            onPress={() => setCategoriaSelecionada('ti')}
-          >
-            <MaterialIcons
-              name="computer"
-              size={24}
-              color={categoriaSelecionada === 'ti' ? '#fff' : '#4F46E5'}
-            />
-
-            <View>
-              <Text
-                style={[
-                  styles.cartaoTitulo,
-                  categoriaSelecionada === 'ti' && styles.textoSelecionado
-                ]}
-              >
-                Informática (TI)
-              </Text>
-
-              <Text
-                style={[
-                  styles.cartaoSub,
-                  categoriaSelecionada === 'ti' && styles.textoSelecionado
-                ]}
-              >
-                Escritório
-              </Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[
-              styles.cartao,
-              categoriaSelecionada === 'producao' && styles.cartaoSelecionado
-            ]}
-            onPress={() => setCategoriaSelecionada('producao')}
-          >
-            <MaterialIcons
-              name="factory"
-              size={24}
-              color={categoriaSelecionada === 'producao' ? '#fff' : '#4F46E5'}
-            />
-
-            <Text
-              style={[
-                styles.cartaoTitulo,
-                categoriaSelecionada === 'producao' && styles.textoSelecionado
-              ]}
-            >
-              Produção
-            </Text>
-          </TouchableOpacity>
-
-        </View>
-
-        <Text style={styles.rotulo}>Título</Text>
-
-        <TextInput
-          placeholder="Adicione um título"
-          placeholderTextColor="#999"
-          multiline
-          style={styles.areaTitulo}
-        />
-
-        <Text style={styles.rotulo}>O que aconteceu?</Text>
-
-        <TextInput
-          placeholder="Descreva brevemente o problema"
-          placeholderTextColor="#999"
-          multiline
-          style={styles.areaTexto}
-        />
-
-        <Text style={styles.rotulo}>Anexar arquivo (Opcional)</Text>
-
-        <TouchableOpacity
-          style={styles.foto}
-          onPress={anexarArquivo}
-        >
-          <Ionicons name="document-attach" size={20} color="#4F46E5" />
-
-          <Text style={styles.textoFoto}>
-            Selecionar arquivo do computador
-          </Text>
-        </TouchableOpacity>
-
-        {arquivoNome !== '' && (
-          <View style={styles.arquivoBox}>
-            <Ionicons name="document-text" size={18} color="#4F46E5" />
-
-            <Text style={styles.nomeArquivo}>
-              {arquivoNome}
-            </Text>
-          </View>
-        )}
-
-        <Text style={styles.rotulo}>Adicione sua Localização</Text>
-
-        <TextInput
-          placeholder="Administração, Almoxerifado ou Produção"
-          placeholderTextColor="#999"
-          style={styles.input}
-        />
-
-        <View style={styles.containerBtn}>
-          <Link href={"/homeFuncionario"} asChild>
-            <TouchableOpacity style={styles.botao}>
-              <Text style={styles.textoBotao}>Enviar chamado</Text>
-            </TouchableOpacity>
-          </Link>
-        </View>
-
-      </ScrollView>
-
-      <View style={styles.bottomNav}>
-        <Link href={"/perfilFuncionario"}>
-          <Ionicons name="person" size={26} color="#FFF" />
-        </Link>
-
-        <Link href={"/homeFuncionario"}>
-          <Ionicons name="home" size={26} color="#FFF" />
-        </Link>
-
-        <Link href={"/historico"}>
-          <Ionicons name="time" size={26} color="#FFF" />
-        </Link>
+      <View style={styles.cabecalho}>
+        <Ionicons name="arrow-back" size={22} color="#fff" />
+        <Text style={styles.tituloCabecalho}>Novo chamado</Text>
       </View>
 
-    </SafeAreaView>
+      <Text style={styles.titulo}>Qual é o seu problema?</Text>
+
+      <Text style={styles.rotulo}>Categoria do Problema</Text>
+
+      <View style={styles.categorias}>
+        <TouchableOpacity style={styles.cartao}>
+          <MaterialIcons name="computer" size={22} color="#6D28D9" />
+
+          <Text style={styles.cartaoTitulo}>Informática</Text>
+          <Text style={styles.cartaoSub}>Escritório</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.cartao}>
+          <MaterialIcons name="factory" size={22} color="#6D28D9" />
+
+          <Text style={styles.cartaoTitulo}>Produção</Text>
+          <Text style={styles.cartaoSub}>Fábrica</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.cartao}>
+          <Ionicons name="document" size={22} color="#6D28D9" />
+
+          <Text style={styles.cartaoTitulo}>Administrativo</Text>
+          <Text style={styles.cartaoSub}>Salas</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Text style={styles.rotulo}>O que aconteceu?</Text>
+
+      <TextInput
+        placeholder="Descreva brevemente o problema"
+        placeholderTextColor="#9A9A9A"
+        multiline
+        style={styles.areaTexto}
+      />
+
+      <Text style={styles.rotulo}>Anexar foto (Opcional)</Text>
+
+      <TouchableOpacity style={styles.foto}>
+        <Ionicons name="image" size={18} color="#7A5CFF" />
+
+        <Text style={styles.textoFoto}>Adicionar foto</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.rotulo}>Adicione sua Localização</Text>
+
+      <TextInput
+        placeholder="Administração, Almoxerifado ou Produção"
+        placeholderTextColor="#9A9A9A"
+        style={styles.input}
+      />
+
+      <TouchableOpacity style={styles.botao}>
+        <Text style={styles.textoBotao}>Enviar chamado</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fffefe'
+    backgroundColor: '#F6F3F3',
   },
 
   cabecalho: {
-    backgroundColor: '#4F46E5',
+    backgroundColor: '#4410B4',
     paddingTop: 15,
     paddingBottom: 20,
     paddingHorizontal: 20,
@@ -216,80 +125,79 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
+    elevation: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
   },
 
   tituloCabecalho: {
     color: '#fff',
     fontSize: 18,
     fontWeight: '600',
-    marginLeft: 90
+    marginLeft: 100
   },
 
   titulo: {
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#5B12D6',
     textAlign: 'center',
     marginVertical: 40,
-    color: '#4F46E5'
+    color: '#4410B4'
   },
 
   rotulo: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginHorizontal: 20,
-    marginBottom: 15,
-    color: '#333'
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#222',
+    marginBottom: 16,
+    marginHorizontal: 18,
   },
 
   categorias: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 20,
-    marginBottom: 20
+    marginHorizontal: 18,
+    marginBottom: 32,
   },
 
   cartao: {
-    flex: 1,
-    flexDirection: 'row',
+    width: '31%',
+    height: 98,
+    backgroundColor: '#FFF',
+    borderWidth: 1.3,
+    borderColor: '#9B6BFF',
+    borderRadius: 18,
     alignItems: 'center',
-    gap: 10,
-    padding: 12,
-    marginRight: 10,
-    backgroundColor: '#F9F4F4',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#4F46E5',
-  },
-
-  cartaoSelecionado: {
-    backgroundColor: '#4F46E5',
-  },
-
-  textoSelecionado: {
-    color: '#fff',
+    justifyContent: 'center',
+    shadowColor: '#8B5CF6',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
+    elevation: 4,
   },
 
   cartaoTitulo: {
+    marginTop: 8,
     fontSize: 13,
-    fontWeight: '600',
-    color: '#4410B4'
+    fontWeight: '700',
+    color: '#6D28D9',
+    textAlign: 'center',
   },
 
   cartaoSub: {
-    fontSize: 13,
-    color: '#777'
-  },
-
-  areaTitulo: {
-    height: 40,
-    backgroundColor: '#F9F4F4',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#4F46E5',
-    marginHorizontal: 20,
-    marginBottom: 20,
-    padding: 12,
-    textAlignVertical: 'top',
+    marginTop: 2,
+    fontSize: 11,
+    color: '#777',
+    textAlign: 'center',
   },
 
   areaTexto: {
@@ -297,14 +205,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9F4F4',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#4F46E5',
+    borderColor: '#7A5CFF',
     marginHorizontal: 20,
     marginBottom: 20,
     padding: 12,
     textAlignVertical: 'top',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    elevation: 4,
   },
 
   foto: {
+    height: 52,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -315,28 +232,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#7A5CFF',
     backgroundColor: '#F9F4F4',
-    marginBottom: 15,
+    marginBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
   },
 
   textoFoto: {
     color: '#777'
-  },
-
-  arquivoBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#ECE8FF',
-    marginHorizontal: 20,
-    padding: 12,
-    borderRadius: 10,
-    marginBottom: 20,
-    gap: 10
-  },
-
-  nomeArquivo: {
-    color: '#4F46E5',
-    fontSize: 14,
-    flex: 1
   },
 
   input: {
@@ -347,35 +254,34 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     padding: 12,
     marginBottom: 30,
-  },
-
-  containerBtn: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 90
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
   },
 
   botao: {
-    backgroundColor: '#4F46E5',
-    width: 180,
+    backgroundColor: '#4410B4',
+    marginHorizontal: 60,
     padding: 15,
     borderRadius: 12,
     alignItems: 'center',
+    elevation: 5,
+    marginBottom: 40,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
   },
 
   textoBotao: {
     color: '#fff',
     fontWeight: '600'
-  },
-
-  bottomNav: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    height: 60,
-    backgroundColor: '#5D3FD3',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
+  }
 });
