@@ -15,19 +15,12 @@ import {
 } from 'react-native';
 
 export default function LoginScreen() {
-  const [cpf, setCpf] = useState('');
+  const [nomeCompleto, setNomeCompleto] = useState('');
   const [senha, setSenha] = useState('');
   const [secureText, setSecureText] = useState(true);
   const [lembreMe, setLembreMe] = useState(false);
   const router = useRouter()
 
-  {/*Dá um limite de caracteres, e permite apenas número nesse campo*/ }
-  const handleCpfChange = (text: string) => {
-    const apenasNumeros = text.replace(/[^0-9]/g, '');
-    if (apenasNumeros.length <= 11) {
-      setCpf(apenasNumeros);
-    }
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -48,19 +41,18 @@ export default function LoginScreen() {
 
         <Text style={styles.subtitle}>Faça login na sua conta!</Text>
 
-        {/* Campo CPF */}
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>CPF</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="00000000000"
-            placeholderTextColor="#999"
-            keyboardType="numeric"
-            maxLength={11}
-            value={cpf}
-            onChangeText={handleCpfChange}
-          />
-        </View>
+        {/* Campo Nome Completo */}
+<View style={styles.inputGroup}>
+  <Text style={styles.label}>Nome Completo</Text>
+  <TextInput
+    style={styles.input}
+    placeholder="Digite seu nome completo"
+    placeholderTextColor="#999"
+    autoCapitalize="words"
+    value={nomeCompleto}
+    onChangeText={setNomeCompleto}
+  />
+</View>
 
         {/* Campo Senha */}
         <View style={styles.inputGroup}>

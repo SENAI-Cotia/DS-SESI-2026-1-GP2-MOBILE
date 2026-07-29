@@ -10,6 +10,7 @@ import {
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
+import { router } from 'expo-router';
 
 interface chamado {
 
@@ -47,7 +48,11 @@ export default function NovoChamado() {
     <ScrollView style={styles.container}>
 
       <View style={styles.cabecalho}>
-        <Ionicons name="arrow-back" size={22} color="#fff" />
+        <Link href="/homeFuncionario">
+  <TouchableOpacity>
+    <Ionicons name="arrow-back" size={22} color="#fff" />
+  </TouchableOpacity>
+</Link>
         <Text style={styles.tituloCabecalho}>Novo chamado</Text>
       </View>
 
@@ -55,29 +60,110 @@ export default function NovoChamado() {
 
       <Text style={styles.rotulo}>Categoria do Problema</Text>
 
-      <View style={styles.categorias}>
-        <TouchableOpacity style={styles.cartao}>
-          <MaterialIcons name="computer" size={22} color="#6D28D9" />
+<View style={styles.categorias}>
+  <TouchableOpacity
+    onPress={() => setCategoriaSelecionada("informatica")}
+    style={[
+      styles.cartao,
+      categoriaSelecionada === "informatica" && styles.cartaoSelecionado,
+    ]}
+  >
+    <MaterialIcons
+      name="computer"
+      size={22}
+      color={categoriaSelecionada === "informatica" ? "#FFF" : "#6D28D9"}
+    />
 
-          <Text style={styles.cartaoTitulo}>Informática</Text>
-          <Text style={styles.cartaoSub}>Escritório</Text>
-        </TouchableOpacity>
+    <Text
+      style={[
+        styles.cartaoTitulo,
+        categoriaSelecionada === "informatica" &&
+          styles.cartaoTituloSelecionado,
+      ]}
+    >
+      Informática
+    </Text>
 
-        <TouchableOpacity style={styles.cartao}>
-          <MaterialIcons name="factory" size={22} color="#6D28D9" />
+    <Text
+      style={[
+        styles.cartaoSub,
+        categoriaSelecionada === "informatica" &&
+          styles.cartaoSubSelecionado,
+      ]}
+    >
+      Escritório
+    </Text>
+  </TouchableOpacity>
 
-          <Text style={styles.cartaoTitulo}>Produção</Text>
-          <Text style={styles.cartaoSub}>Fábrica</Text>
-        </TouchableOpacity>
+  <TouchableOpacity
+    onPress={() => setCategoriaSelecionada("producao")}
+    style={[
+      styles.cartao,
+      categoriaSelecionada === "producao" && styles.cartaoSelecionado,
+    ]}
+  >
+    <MaterialIcons
+      name="factory"
+      size={22}
+      color={categoriaSelecionada === "producao" ? "#FFF" : "#6D28D9"}
+    />
 
-        <TouchableOpacity style={styles.cartao}>
-          <Ionicons name="document" size={22} color="#6D28D9" />
+    <Text
+      style={[
+        styles.cartaoTitulo,
+        categoriaSelecionada === "producao" &&
+          styles.cartaoTituloSelecionado,
+      ]}
+    >
+      Produção
+    </Text>
 
-          <Text style={styles.cartaoTitulo}>Administrativo</Text>
-          <Text style={styles.cartaoSub}>Salas</Text>
-        </TouchableOpacity>
-      </View>
+    <Text
+      style={[
+        styles.cartaoSub,
+        categoriaSelecionada === "producao" &&
+          styles.cartaoSubSelecionado,
+      ]}
+    >
+      Fábrica
+    </Text>
+  </TouchableOpacity>
 
+  <TouchableOpacity
+    onPress={() => setCategoriaSelecionada("administrativo")}
+    style={[
+      styles.cartao,
+      categoriaSelecionada === "administrativo" &&
+        styles.cartaoSelecionado,
+    ]}
+  >
+    <Ionicons
+      name="document"
+      size={22}
+      color={categoriaSelecionada === "administrativo" ? "#FFF" : "#6D28D9"}
+    />
+
+    <Text
+      style={[
+        styles.cartaoTitulo,
+        categoriaSelecionada === "administrativo" &&
+          styles.cartaoTituloSelecionado,
+      ]}
+    >
+      Administrativo
+    </Text>
+
+    <Text
+      style={[
+        styles.cartaoSub,
+        categoriaSelecionada === "administrativo" &&
+          styles.cartaoSubSelecionado,
+      ]}
+    >
+      Salas
+    </Text>
+  </TouchableOpacity>
+</View>
       <Text style={styles.rotulo}>O que aconteceu?</Text>
 
       <TextInput
@@ -184,6 +270,33 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 4,
   },
+
+  cartaoSelecionado: {
+  width: '31%',
+  height: 98,
+  backgroundColor: '#6D28D9',
+  borderWidth: 1.3,
+  borderColor: '#6D28D9',
+  borderRadius: 18,
+  alignItems: 'center',
+  justifyContent: 'center',
+  shadowColor: '#8B5CF6',
+  shadowOffset: {
+    width: 0,
+    height: 3,
+  },
+  shadowOpacity: 0.15,
+  shadowRadius: 5,
+  elevation: 4,
+},
+
+cartaoTituloSelecionado: {
+  color: '#FFF',
+},
+
+cartaoSubSelecionado: {
+  color: '#FFF',
+},
 
   cartaoTitulo: {
     marginTop: 8,
